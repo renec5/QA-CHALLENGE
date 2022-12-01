@@ -1,0 +1,13 @@
+{
+    "url": "https://todoist.com/",
+    "validCredentials": 
+    {
+        "email": "evilsnake_@hotmail.com",
+        "password": "1983Rene@"
+    },
+    "invalidCredentials":
+    {
+        "email": "evilsnake_@hotmail.com",
+        "password": "abcabcabc"
+    }
+}
