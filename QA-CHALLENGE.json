@@ -39,7 +39,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -48,7 +48,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects"
 							]
 						}
@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"QA Challenge Project\",\n    \"parent_id\": 1,\n    \"parent Deprecated\": 1,\n    \"color\": 21,\n    \"favorite\": true\n}",
+							"raw": "{\n    \"name\": \"QA Challenge Project\",\n    \"parent_id\": 1,\n    \"parent Deprecated\": 1,\n    \"color\": \"grey\",\n    \"favorite\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -86,7 +86,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -95,7 +95,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects"
 							]
 						}
@@ -133,7 +133,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects/{{getProjectID}}",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects/{{getProjectID}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -142,7 +142,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects",
 								"{{getProjectID}}"
 							]
@@ -157,7 +157,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Update Project\", ()=>{",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.name).to.equal(\"Things to buy\");",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -176,7 +179,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects/{{getProjectID}}",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects/{{getProjectID}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -185,7 +188,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects",
 								"{{getProjectID}}"
 							]
@@ -195,11 +198,24 @@
 				},
 				{
 					"name": "Delete Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Project status 204 no content back\", ()=>{",
+									"    pm.expect(pm.response.code).to.equal(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects/{{getProjectID}}",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects/{{getProjectID}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -208,7 +224,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects",
 								"{{getProjectID}}"
 							]
@@ -237,7 +253,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/project",
+							"raw": "https://api.todoist.com/rest/{{version}}/project",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -246,7 +262,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"project"
 							]
 						}
@@ -274,7 +290,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -283,7 +299,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects"
 							]
 						}
@@ -310,7 +326,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects/123",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects/123",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -319,7 +335,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects",
 								"123"
 							]
@@ -336,7 +352,7 @@
 								"exec": [
 									"pm.test(\"Validate NegativeUpdateProject\", ()=>{",
 									"    pm.expect(pm.response.code).to.equal(400);",
-									"    pm.expect(pm.response.text()).to.equal(\"At least one of name, color or favorite fields should be set\");",
+									"    pm.expect(pm.response.text()).to.equal(\"At least one of name, color or is_favorite fields should be set\");",
 									"})"
 								],
 								"type": "text/javascript"
@@ -347,7 +363,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects/123",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects/123",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -356,7 +372,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects",
 								"123"
 							]
@@ -383,7 +399,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/projects/123",
+							"raw": "https://api.todoist.com/rest/{{version}}/projects/123",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -392,7 +408,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"projects",
 								"123"
 							]
@@ -405,58 +421,6 @@
 		{
 			"name": "Tasks",
 			"item": [
-				{
-					"name": "GET-ACTIVE-TASKS",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Getting tasks\", ()=>{",
-									"  const response = pm.response.json();",
-									"  console.log(response);",
-									"  pm.expect(response.length).to.gte(5);",
-									"  ",
-									"  ",
-									"})",
-									"",
-									"pm.test(\"Getting IDs\", ()=>{",
-									"  const response = pm.response.json();",
-									"  console.log(response);",
-									"  for(let i = 0; i < 6; i++){",
-									"      pm.expect(response[i].description).to.equal(`This is just a test task called: Test ${i}`)",
-									"      pm.expect(response[i].content).to.equal(`Test ${i}`);",
-									"  }",
-									"  ",
-									"})",
-									"",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks",
-							"protocol": "https",
-							"host": [
-								"api",
-								"todoist",
-								"com"
-							],
-							"path": [
-								"rest",
-								"v1",
-								"tasks"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "CREATE-TASK",
 					"event": [
@@ -487,7 +451,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -496,7 +460,47 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET-ACTIVE-TASKS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Getting ACTIVE TASKS\", ()=>{",
+									"  const response = pm.response.json();",
+									"  pm.expect(response[0].content).to.equal(\"QA-Challenge\");",
+									"  pm.expect(response[0].description).to.equal(\"Task created for QA-Callenge test\");",
+									"})",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"{{version}}",
 								"tasks"
 							]
 						}
@@ -512,7 +516,7 @@
 								"exec": [
 									"pm.test(\"Validate Acitve Task\", ()=>{",
 									"    const response = pm.response.json();",
-									"    pm.expect(response.completed).to.be.false;",
+									"    pm.expect(response.is_completed).to.be.false;",
 									"    pm.expect(response.id).to.equal(pm.environment.get(\"ProjectID\"));",
 									"})",
 									"",
@@ -536,7 +540,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/{{ProjectID}}",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/{{ProjectID}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -545,7 +549,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"{{ProjectID}}"
 							]
@@ -555,6 +559,21 @@
 				},
 				{
 					"name": "UPDATE-TASK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update Task\", ()=>{",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.content).to.equal(\"Update QA-Challenge\");",
+									"    pm.expect(response.description).to.equal(\"Task update for QA-Callenge test\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -568,7 +587,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/{{ProjectID}}",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/{{ProjectID}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -577,7 +596,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"{{ProjectID}}"
 							]
@@ -587,11 +606,24 @@
 				},
 				{
 					"name": "CLOSE-TASK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Close Task status code 204 no data back\", ()=>{",
+									"    pm.expect(pm.response.code).to.equal(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/{{ProjectID}}/close",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/{{ProjectID}}/close",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -600,7 +632,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"{{ProjectID}}",
 								"close"
@@ -611,11 +643,24 @@
 				},
 				{
 					"name": "REOPEN-TASK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"ReOpen Task status code 204 no data back\", ()=>{",
+									"    pm.expect(pm.response.code).to.equal(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/{{ProjectID}}/reopen",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/{{ProjectID}}/reopen",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -624,7 +669,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"{{ProjectID}}",
 								"reopen"
@@ -635,11 +680,24 @@
 				},
 				{
 					"name": "DELETE-TASK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Task status code 204 no data back\", ()=>{",
+									"    pm.expect(pm.response.code).to.equal(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/{{ProjectID}}",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/{{ProjectID}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -648,7 +706,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"{{ProjectID}}"
 							]
@@ -676,7 +734,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/task",
+							"raw": "https://api.todoist.com/rest/{{version}}/task",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -685,7 +743,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"task"
 							]
 						}
@@ -712,7 +770,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -721,7 +779,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks"
 							]
 						}
@@ -748,7 +806,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/123",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/123",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -757,7 +815,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"123"
 							]
@@ -785,7 +843,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/123",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/123",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -794,7 +852,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"123"
 							]
@@ -822,7 +880,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/123/close",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/123/close",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -831,7 +889,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"123",
 								"close"
@@ -860,7 +918,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks/123/reopen",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks/123/reopen",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -869,7 +927,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks",
 								"123",
 								"reopen"
@@ -898,7 +956,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://api.todoist.com/rest/v1/tasks",
+							"raw": "https://api.todoist.com/rest/{{version}}/tasks",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -907,7 +965,7 @@
 							],
 							"path": [
 								"rest",
-								"v1",
+								"{{version}}",
 								"tasks"
 							]
 						}
