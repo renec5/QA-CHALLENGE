@@ -2,6 +2,7 @@ const Inbox = require('../pageobjects/Inbox');
 
 class MainToDoPage{
 
+    // WEB ELEMENTS
     get userIconBtn () { return $("button[aria-label='Configuración']")};
     get newTaskBtn () { return $("//button[contains(text(),'Añadir tarea')]")};
     get taskNameField () { return $("div[role='textbox']")};
