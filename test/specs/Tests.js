@@ -15,31 +15,33 @@ describe("QA Challenge", async ()=>{
         await browser.reloadSession();
     })
 
-    xit("Invalid Login", async ()=>{
+    it("Invalid Login smoke sanity reggression", async ()=>{
         await MainPage.gotoLoginPage();
         await LoginPage.invalidLogin();
         await expect (await LoginPage.validateInvalidLogin()).toEqual(true);
     })
 
-    it("Valid Login", async ()=>{
+    it("Valid Login smoke sanity reggression", async ()=>{
         await MainPage.gotoLoginPage();
         await LoginPage.validLogin();
         await expect(await MainToDoPage.validateSuccessLogin()).toEqual(true);
     })
 
-    xit("Add Test", async ()=>{
+    it("Add Test sanity reggression", async ()=>{
         const testName = "Test 1";
         await MainPage.gotoLoginPage();
         await LoginPage.validLogin();
         await expect(await MainToDoPage.validateSuccessLogin()).toEqual(true);
         await MainToDoPage.addTask(testName);
+        await browser.pause(2000);
         await expect(await Inbox.validateTestAdded(testName)).toEqual(true);
     })
 
-    xit("Delete test", async ()=>{
+    it("Delete test sanity reggression", async ()=>{
         await MainPage.gotoLoginPage();
         await LoginPage.validLogin();
         await Inbox.deleteTask("Test 1");
+        await browser.pause(2000);
         await Inbox.validateTaskDeleted("Test 1");
     })
 
@@ -50,7 +52,22 @@ describe("QA Challenge", async ()=>{
         for(let i = 0; i < 10; i++){
         const testName = "Test " + i;
         await MainToDoPage.addTask(testName);
-        await expect(await Inbox.validateTestAdded(testName)).toEqual(true);
+        //await expect(await Inbox.validateTestAdded(testName)).toEqual(true);
         }
+        await browser.pause(2000);
+    })
+
+    it("Validate added tasks reggression", async ()=>{
+        await MainPage.gotoLoginPage();
+        await LoginPage.validLogin();
+        await expect(await MainToDoPage.validateSuccessLogin()).toEqual(true);
+        await MainToDoPage.validateAddedTasks();
+    })
+
+    it("Delete Tasks reggression", async ()=>{
+        await MainPage.gotoLoginPage();
+        await LoginPage.validLogin();
+        await expect(await MainToDoPage.validateSuccessLogin()).toEqual(true);
+        await MainToDoPage.deleteTasks();
     })
 })
