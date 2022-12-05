@@ -3,8 +3,14 @@ const MainPage = require("../pageobjects/MainPage");
 const LoginPage = require("../pageobjects/LoginPage");
 const MainToDoPage = require("../pageobjects/MainToDoPage");
 const Inbox = require("../pageobjects/Inbox");
+const exec = require("child_process").exec;
 
 describe("QA Challenge", async ()=>{
+
+    before(async ()=>{
+        await exec("rm -rf allure-report");
+        await exec("rm -rf allure-results");
+    })
 
     beforeEach(async ()=>{
         await browser.url(credentials.url);
@@ -13,6 +19,10 @@ describe("QA Challenge", async ()=>{
 
     afterEach(async ()=>{
         await browser.reloadSession();
+    })
+
+    after(async ()=>{
+        await exec("allure generate -c allure-results && allure open");
     })
 
     it("Invalid Login smoke sanity reggression", async ()=>{
