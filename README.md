@@ -18,6 +18,12 @@ It is using mocha and for report part allure reports.
 
 It has been used to do backend testing API.
 
+## NEWMAN
+
+It has been used to run collection from terminal, It has been done with dinamic changes,
+so it means that if somethigs gets changed on the collection changes will be considered
+on the execution.
+
 ## Jenkins
 
 It has been used for CI/CD.
