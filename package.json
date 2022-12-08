@@ -17,8 +17,8 @@
     },
     "scripts": {
         "wdio": "wdio run wdio.conf.js",
-        "sanity": "npx wdio run wdio.conf.js --mochaOpts.grep sanity",
         "smoke": "npx wdio run wdio.conf.js --mochaOpts.grep smoke",
+        "sanity": "npx wdio run wdio.conf.js --mochaOpts.grep sanity",
         "reggression": "npx wdio run wdio.conf.js --mochaOpts.grep reggression"
     },
     "dependencies": {

@@ -12,8 +12,8 @@ describe("QA Challenge", async ()=>{
      * issues on the final report.
     */
     before(async ()=>{
-        await exec("rm -rf allure-report");
         await exec("rm -rf allure-results");
+        await exec("rm -rf allure-report");
     })
 
     /* This method gets executed once before every test
@@ -35,7 +35,7 @@ describe("QA Challenge", async ()=>{
      * It creates the allure report and opens it.
     */
     after(async ()=>{
-        await exec("allure generate -c allure-results && allure open");
+        await exec("allure generate allure-results && allure open");
     })
 
     /* Tries to login with invalid credentials to make sure 

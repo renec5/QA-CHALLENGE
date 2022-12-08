@@ -14,14 +14,9 @@ class Inbox{
     get noTasks () { return $("//div[contains(text(),'No hay tareas')] | //div[contains(text(),'Tu tranquilidad no tiene precio')] | //div[contains(text(),'All your tasks are organized in the right place')]  | //div[contains(text(),'Well done')]")};
 
     async validateTestAdded(testName){
-        // await this.inbox.waitForClickable();
-        // await this.inbox.click();
-        // await browser.pause(3000);
         await this.taskRadioBtn.waitForClickable();
         await $("//div[contains(text(),'" + testName + "')]").waitForClickable();
-        //await this.testAdded.waitForClickable();
         await $("//div[contains(text(),'" + testName + "')]").click();
-        //await browser.pause(3000);
         await this.subTask.waitForClickable()
         return await this.subTask.isDisplayed() ? true : false;
     }
